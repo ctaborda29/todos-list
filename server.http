@@ -1,0 +1,23 @@
+###
+post http://localhost:3000/
+Content-Type: application/json
+
+{
+    "userId": 10,
+    "title": "dignissimos quo nobis earum saepe",
+    "completed": true
+}
+
+
+###
+put http://localhost:3000/23
+Content-Type: application/json
+
+{
+    "userId": 10,
+    "title": "dignissimos quo nobis earum saepe",
+    "completed": true
+}
+
+###
+get http://localhost:3000/
