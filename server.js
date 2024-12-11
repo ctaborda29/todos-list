@@ -1,6 +1,5 @@
 const express = require("express");
 const { sequelize } = require("./sequelize");
-//const pool = require("./bdPostgres");
 
 const app = express();
 const port = 3000;
