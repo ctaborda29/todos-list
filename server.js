@@ -61,12 +61,7 @@ app.put('/:id', async (req, res) => {
   const id = parseInt(req.params.id);
     const foundTodo  = await sequelize.findOne({ where: { id } });
     if (foundTodo ){
-      await sequelize.update(
-        { title, completed }, 
-        {
-          where: { id },
-        }
-      );
+      await sequelize.update({ title, completed }, {where: { id },});
       res.status(200).json(foundTodo );
       }
 else{
