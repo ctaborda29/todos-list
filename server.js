@@ -26,7 +26,8 @@ app.get("/fullBD", async (req, res) => {
   const todos = await sequelize.findAll();
   if (todos.length < 200) {
     fullBD();
-  )
+  }
+})
 
 app.get("/", async (req, res) => {
   const todos = await sequelize.findAll();
