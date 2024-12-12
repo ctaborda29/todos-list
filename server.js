@@ -1,59 +1,20 @@
 const express = require("express");
-const { sequelize } = require("./sequelize");
+
+const { sequelize } = require("./models/sequelize");
+
+const { todosRouter } = require("./routes/todos.route");
 
 const app = express();
 const port = 3000;
 
+// this is caca
+sequelize.sync({});
+
 app.use(express.json());
 
-app.get("/", async (req, res) => {
-  const todos = await sequelize.findAll();
-  res.json(todos);
-});
-
-app.get("/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  try {
-    const foundTodo = await sequelize.findOne({ where: { id } });
-    res.json(foundTodo);
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-app.post("/", async (req, res) => {
-  const { title, completed } = req.body;
-  const newTodo = await sequelize.create({
-    title,
-    completed,
-  });
-  res.status(201).json(newTodo);
-});
-
-app.put("/:id", async (req, res) => {
-  const { title, completed } = req.body;
-  const id = parseInt(req.params.id);
-  const foundTodo = await sequelize.findOne({ where: { id } });
-  if (foundTodo) {
-    await sequelize.update({ title, completed }, { where: { id } });
-    res.status(200).json(foundTodo);
-  } else {
-    res.status(404).json({ message: "todo not found" });
-  }
-});
-
-app.delete("/:id", async (req, res) => {
-  const id = Number(req.params.id);
-  const foundTodo = await sequelize.findOne({ where: { id } });
-  if (foundTodo) {
-    const deleted = await sequelize.destroy({ where: { id } });
-    console.log(`${deleted}: todos deleted`);
-    res.status(200).json(foundTodo);
-  } else {
-    res.status(404).json({ message: "todo not found" });
-  }
-});
+// routes
+app.use("/todos", todosRouter);
 
 app.listen(port, () => {
-  console.log(`server running on port ${port}`);
+    console.log(`server running on port ${port}`);
 });
