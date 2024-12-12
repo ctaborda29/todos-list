@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { usersModel } = require("../models/users.model");
+const { todosModel } = require("../models/todos.model");
 
 router.get("/", async (req, res) => {
   const users = await usersModel.findAll();
@@ -11,7 +12,10 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const foundUser = await usersModel.findOne({ where: { id } });
+    const foundUser = await usersModel.findOne({
+      where: { id },
+      include: todosModel,
+    });
     res.json(foundUser);
   } catch (err) {
     console.error(err);
@@ -20,19 +24,22 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { name, password } = req.body;
-  const newuser = await usersModel.create({
+  const newUser = await usersModel.create({
     name,
     password,
   });
-  res.status(201).json(newuser);
+  res.status(201).json(newUser);
 });
 
 router.put("/:id", async (req, res) => {
-  const { name, password } = req.body;
+  const { name, password, email } = req.body;
   const id = parseInt(req.params.id);
-  const foundUser = await usersModel.findOne({ where: { id } });
+  const foundUser = await usersModel.findOne({
+    where: { id },
+    include: todosModel,
+  });
   if (foundUser) {
-    await usersModel.update({ name, password }, { where: { id } });
+    await usersModel.update({ name, password, email }, { where: { id } });
     const updateUser = await usersModel.findOne({ where: { id } });
     res.status(200).json(updateUser);
   } else {

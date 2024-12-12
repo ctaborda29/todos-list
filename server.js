@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 
 // this is caca
-sequelize.sync({});
+//sequelize.sync({force: true});
 
 app.use(express.json());
 

@@ -13,4 +13,6 @@ const usersModel = sequelize.define("users", {
   },
 });
 
+
+
 module.exports.usersModel = usersModel;
