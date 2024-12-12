@@ -6,28 +6,6 @@ const port = 3000;
 
 app.use(express.json());
 
-async function fullBD() {
-  fetch(`https://jsonplaceholder.typicode.com/todos`)
-    .then(response => response.json())
-    .then(response =>{
-      response.forEach(async element => {
-        const { title, completed, id } = element;
-        const foundTodo  = await sequelize.findOne({ where: { id } });
-        if(foundTodo ){
-        await sequelize.create({
-          title,
-          completed,
-        });
-      }
-    });
-    })};
-
-app.get("/fullBD", async (req, res) => {
-  const todos = await sequelize.findAll();
-  if (todos.length < 200) {
-    fullBD();
-  }
-})
 
 app.get("/", async (req, res) => {
   const todos = await sequelize.findAll();
