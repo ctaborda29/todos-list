@@ -19,10 +19,12 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { title, completed } = req.body;
+  const { title, completed, userId } = req.body;
+  const user_id = parseInt(userId);
   const newTodo = await todosModel.create({
     title,
     completed,
+    user_id,
   });
   res.status(201).json(newTodo);
 });

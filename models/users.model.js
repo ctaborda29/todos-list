@@ -11,11 +11,8 @@ const usersModel = sequelize.define("users", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-},
 });
+
+
 
 module.exports.usersModel = usersModel;
