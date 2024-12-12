@@ -12,8 +12,8 @@ async function fullBD() {
     .then(response =>{
       response.forEach(async element => {
         const { title, completed, id } = element;
-        const findtodo = await sequelize.findOne({ where: { id } });
-        if(findtodo){
+        const foundTodo  = await sequelize.findOne({ where: { id } });
+        if(foundTodo ){
         await sequelize.create({
           title,
           completed,
@@ -39,8 +39,8 @@ app.get("/", async (req, res) => {
 app.get("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try{
-    const findtodo = await sequelize.findOne({ where: { id } });
-    res.json(findtodo);
+    const foundTodo  = await sequelize.findOne({ where: { id } });
+    res.json(foundTodo );
   }
   catch(err){
     console.error(err)
@@ -59,15 +59,15 @@ app.post("/", async (req, res) => {
 app.put('/:id', async (req, res) => {
   const { title, completed } = req.body;
   const id = parseInt(req.params.id);
-    const findtodo = await sequelize.findOne({ where: { id } });
-    if (findtodo){
+    const foundTodo  = await sequelize.findOne({ where: { id } });
+    if (foundTodo ){
       await sequelize.update(
         { title, completed }, 
         {
           where: { id },
         }
       );
-      res.status(200).json(findtodo);
+      res.status(200).json(foundTodo );
       }
 else{
   res.status(404).json({ message: "User not found" });
@@ -76,13 +76,13 @@ else{
 
 app.delete("/:id", async (req,res)=>{
   const id = Number(req.params.id);
-    const findtodo = await sequelize.findOne({ where: { id } });
-    if (findtodo){
+    const foundTodo  = await sequelize.findOne({ where: { id } });
+    if (foundTodo ){
       const deleted = await sequelize.destroy({
         where: { id },
       });
       console.log(`${deleted}: todos deleted`)
-      res.status(200).json(findtodo);
+      res.status(200).json(foundTodo );
       }
 else{
   res.status(404).json({ message: "User not found" });
