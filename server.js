@@ -73,9 +73,7 @@ app.delete("/:id", async (req,res)=>{
   const id = Number(req.params.id);
     const foundTodo  = await sequelize.findOne({ where: { id } });
     if (foundTodo ){
-      const deleted = await sequelize.destroy({
-        where: { id },
-      });
+      const deleted = await sequelize.destroy({ where: { id },});
       console.log(`${deleted}: todos deleted`)
       res.status(200).json(foundTodo );
       }
