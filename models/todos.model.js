@@ -11,19 +11,18 @@ const todosModel = sequelize.define("todos", {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: "user_id",
   },
 });
 
 // Add the association (foreign key)
 todosModel.belongsTo(usersModel, {
-  foreignKey: {
-    name: "user_id", // This is the foreign key column in the todos table
-    allowNull: false, // Ensures a todo must be associated with a user
-  },
-  onDelete: "CASCADE", // Delete todos if the associated user is deleted
+  foreignKey: "user_id",
+  targetKey: "id",
+  as: "user",
 });
 
 usersModel.hasMany(todosModel, {
