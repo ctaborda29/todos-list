@@ -70,7 +70,7 @@ app.put('/:id', async (req, res) => {
       res.status(200).json(foundTodo );
       }
 else{
-  res.status(404).json({ message: "User not found" });
+  res.status(404).json({ message: "todo not found" });
 }
 });
 
@@ -85,7 +85,7 @@ app.delete("/:id", async (req,res)=>{
       res.status(200).json(foundTodo );
       }
 else{
-  res.status(404).json({ message: "User not found" });
+  res.status(404).json({ message: "todo not found" });
 }
 });
 
