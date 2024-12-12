@@ -26,9 +26,7 @@ app.get("/fullBD", async (req, res) => {
   const todos = await sequelize.findAll();
   if (todos.length < 200) {
     fullBD();
-    res.json({ message: "BD entered " });
-  } else res.json({ message: "BB full" });
-});
+  )
 
 app.get("/", async (req, res) => {
   const todos = await sequelize.findAll();
